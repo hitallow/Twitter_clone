@@ -4,7 +4,7 @@
 
     // recuperando os dados
     $email = $_POST['usuario'];
-    $senha = $_POST['senha'];
+    $senha = md5($_POST['senha']);
     
     //Conexão com o data base
     $BD = new db();
