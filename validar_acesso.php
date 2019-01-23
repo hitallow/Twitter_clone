@@ -12,7 +12,7 @@
     $conn = $BD->connMysql();
     
     // Construindo a query 
-    $query = "SELECT username,email FROM usuarios WHERE username= '$email' AND senha ='$senha'";
+    $query = "SELECT username,email,id FROM usuarios WHERE username= '$email' AND senha ='$senha'";
 
     $result = mysqli_query($conn, $query);
     
@@ -26,6 +26,7 @@
         }else{ 
             $_SESSION['user'] = $dados['username'];
             $_SESSION['email'] = $dados['email'];
+            $_SESSION['id_user'] = $dados['id'];
             header('Location:home.php');
             //echo "<br/> bem vindo ".$dados['username'];
         }

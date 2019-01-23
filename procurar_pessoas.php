@@ -18,34 +18,22 @@
 		<script>
 			$(document).ready(
 				function(){
-					$('#btn_tweet').click(function(){
-							if($('#texto_tweet').val().length > 0)
+					$('#btn_search').click(function(){
+							if($('#nome_pessoa').val().length > 0)
 							{
 								$.ajax({
-									url:'incluir_tweet.php',
+									url:'get_pessoas.php',
 									method: 'post',
-									data :$('#form_tweet').serialize(),
+									data :$('#form_procura_pessoas').serialize(),
 									success:function(data){
-											$('#texto_tweet').val('');
-											get_tweet();
+                                        $('#nome_pessoa').val('');
+                                        $("#pessoas").html(data);                                           
 									}
 
 								})
 							}
 					});
-
-				function get_tweet(){
-					$.ajax({
-							url:'get_tweets.php',
-							method :'post',
-							success: function(data){
-									$('#tweets').html(data);
-							}
-					});
-
-				};
-				get_tweet();
-				});
+			});
 		</script>
 	
 	</head>
@@ -95,22 +83,22 @@
 	    	<div class="col-md-6">
 	    		<div class='panel panel-default'>
 						<div class='panel-body'>
-							<form id='form_tweet' class='input-group'>
-								<input id='texto_tweet' name='texto_tweet' type="text" class='form-control' placeholder='o que está acontentecendo agora?' maxlength='140' >
+							<form method='post' id='form_procura_pessoas' class='input-group'>
+								<input id='nome_pessoa' name='nome_pessoa' type="text" class='form-control' placeholder='Quem você está procurando?' maxlength='140' >
 								<span class='input-group-btn'>
-									<button id='btn_tweet'class='btn btn-default'>Tweet</button>
+									<button id='btn_search' class='btn btn-default'>Buscar</button>
 								</span>
 							</form>
 						</div>
 					</div>
-					<div id='tweets' class='list-group'>
+					<div id='pessoas' class='list-group'>
 
 					</div>
 				</div>
 				<div class="col-md-3">
 					<div class='panel panel-default'>
 						<div class='panel-body'>
-							<h4> <a href='procurar_pessoas.php'>Procurar por pessoas ...</a></h4>
+							
 						</div>
 					</div>
 				</div>
