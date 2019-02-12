@@ -18,21 +18,40 @@
 		<script>
 			$(document).ready(
 				function(){
-					$('#btn_search').click(function(){
+					$('#btn_search').click(function(e){
+							e.preventDefault();
 							if($('#nome_pessoa').val().length > 0)
 							{
 								$.ajax({
 									url:'get_pessoas.php',
 									method: 'post',
 									data :$('#form_procura_pessoas').serialize(),
-									success:function(data){
-                                        $('#nome_pessoa').val('');
+									success : function(data){			
                                         $("#pessoas").html(data);                                           
-									}
+																				$('.btn_seguir').click(function(e){
+																					e.preventDefault();
+																					var id_usuario = $(this).data('id_usuario') ; 
+																					var nome = $(this).parents().siblings('strong').html();
+																					
+																					$.ajax({
+																						url: 'seguir_pessoas.php',
+																						method : 'post',
+																						data : { id_user_seguir : id_usuario},
+																						success: function(data){
+																							alert(data);
+																							//alert('Você está seguindo '+nome);
+																						}
 
-								})
+
+																					});
+																				});
+									},	
+
+								});
 							}
 					});
+
+
 			});
 		</script>
 	
