@@ -12,12 +12,12 @@
     
     $id_user = $_SESSION['id_user'];
     
-    $id_user_seguir = $_POST['id_user_seguir'];
+    $id_user_deixar_seguir = $_POST['id_user_deixar_seguir'];
     $sql = "
-        
-        insert into usuarios_seguidores( id_usuario , id_usuario_seguido) values ($id_user, $id_user_seguir );
+        DELETE FROM usuarios_seguidores WHERE  id_usuario = $id_user AND id_usuario_seguido = $id_user_deixar_seguir ;
         ";
     
-    echo mysqli_query($conn, $sql);
-    echo $sql;
+    mysqli_query($conn, $sql);
+    
+    
 ?>

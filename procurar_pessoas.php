@@ -32,7 +32,8 @@
 																					e.preventDefault();
 																					var id_usuario = $(this).data('id_usuario') ; 
 																					var nome = $(this).parents().siblings('strong').html();
-																					
+																					$('#btn_seguir'+id_usuario).hide();
+																					$('#btn_deixar_seguir'+id_usuario).show();
 																					$.ajax({
 																						url: 'seguir_pessoas.php',
 																						method : 'post',
@@ -44,6 +45,25 @@
 
 
 																					});
+																				});
+																				$('.btn_deixar_seguir').click(function(e){
+																					e.preventDefault();
+																					
+																					var id_usuario = $(this).data('id_usuario');
+																					var nome = $(this).parents().siblings('strong').html();
+																					$('#btn_seguir'+id_usuario).show();
+																					$('#btn_deixar_seguir'+id_usuario).hide	();
+																					$.ajax({
+																						url: 'deixar_seguir.php',
+																						method: 'post',
+																						data : { id_user_deixar_seguir : id_usuario},
+																						success : function(data){
+																							alert('Você deixou de seguir '+nome);
+																						}
+
+																					})
+
+
 																				});
 									},	
 
@@ -126,7 +146,7 @@
 
 
 	    </div>
-	
+			
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
 	</body>

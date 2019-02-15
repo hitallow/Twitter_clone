@@ -11,8 +11,11 @@
     $sql = "
         SELECT DATE_FORMAT(t.data_inclusao,'%d %b %Y %T') AS data_inclusao,t.tweet,u.username 
         FROM tweet AS t JOIN usuarios AS u ON(t.id_user = u.id)
-        WHERE id_user = '$id_user' ORDER BY data_inclusao DESC
+        WHERE id_user = $id_user or 
+        t.id_user IN(SELECT id_usuario_seguido FROM usuarios_seguidores WHERE id_usuario = $id_user ) 
+        ORDER BY data_inclusao DESC
     ";
+
     $result_query =mysqli_query($conn,$sql); 
     if(!$result_query){
         echo 'erro no sql';

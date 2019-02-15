@@ -1,7 +1,23 @@
 <?php 
-    session_start();
+		session_start();
+		require_once('db.class.php');
     if(!isset($_SESSION['user']))
-        header('Location:index.php?error=2');
+				header('Location:index.php?error=2');
+				
+		$sql = " SELECT COUNT(tweet) AS total FROM tweet WHERE id_user =".$_SESSION['id_user'] ; 
+		$BD = new db();
+		$conn = $BD->connMysql();
+		$result = mysqli_query($conn,$sql);
+		if(!$result){
+			$tweets = 0;
+		}else{
+			$tweets = mysqli_fetch_array($result)['total'];
+
+		}
+		$sql = "SELECT COUNT(*) AS total FROM usuarios_seguidores WHERE id_usuario_seguido = ".$_SESSION['id_user'] ;
+		$result = mysqli_query($conn,$sql);
+		$seguidores = mysqli_fetch_array($result)['total'];
+		echo $_SESSION['id_user'] ;
 ?>
 <!DOCTYPE HTML>
 <html lang="pt-br">
@@ -84,10 +100,10 @@
 							</div>
 							<hr/>
 							<div class='col-md-6'>
-								TWETTES <br/> 1
+								TWETTES <br/> <?=  $tweets ?>
 							</div>
 							<div class='col-md-6'>
-								SEGUIDORES <br/> 1
+								SEGUIDORES <br/> <?= $seguidores ?>
 							</div>
 						</div>	
 					</div>
